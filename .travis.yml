@@ -2,19 +2,12 @@ language: generic
 sudo: required
 services:
   - docker
-
+matrix:
+  fast_finish: true
 before_script:
   - docker login -u "${DOCKERHUB_USERNAME}" -p "${DOCKERHUB_PASSWORD}"
 script:
-  - docker build -t infolinks/crond:${TRAVIS_COMMIT} .
-after_success:
-  - |
-    if [[ ${TRAVIS_TAG} =~ ^v[0-9]+$ ]]; then
-      docker tag infolinks/crond:${TRAVIS_COMMIT} infolinks/crond:${TRAVIS_TAG}
-      docker push infolinks/crond:${TRAVIS_TAG}
-      docker tag infolinks/crond:${TRAVIS_COMMIT} infolinks/crond:latest
-      docker push infolinks/crond:latest
-    fi
+  - .travis/build.sh
 after_script:
   - |
     if [[ "${TRAVIS_BRANCH}" == "master" ]]; then
