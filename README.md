@@ -1,5 +1,7 @@
 # crond
 
+[![Build Status](https://travis-ci.org/infolinks/crond.svg?branch=master)](https://travis-ci.org/infolinks/k8s-ingress-networks)
+
 Docker image running cron daemon for executing a periodic job.
 
 This container receives (via environment variables) a job to run and the
